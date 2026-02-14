@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <title>Two Worlds – Chapter 1</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Main Menu Screen -->
+    <div id="menu-screen" class="screen active">
+        <div class="menu-content">
+            <h1 class="title">Two Worlds</h1>
+            <p class="subtitle">Chapter 1</p>
+            <button id="start-btn" class="btn-primary">Begin</button>
+            <button id="continue-btn" class="btn-secondary" style="display: none;">Continue</button>
+        </div>
+    </div>
+
+    <!-- Level Screen -->
+    <div id="level-screen" class="screen">
+        <div class="level-header">
+            <button id="sound-toggle" class="sound-btn" aria-label="Toggle sound">🔊</button>
+            <button id="hint-btn" class="hint-btn">💡 Hint</button>
+            <div class="progress-indicator">
+                <span id="level-number">Level 1</span>
+                <div class="progress-bar">
+                    <div id="progress-fill" class="progress-fill"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="level-content">
+            <h2 id="level-title" class="level-title"></h2>
+            <p id="level-description" class="level-description"></p>
+            
+            <!-- Level 1: Word Input -->
+            <div id="level-1-content" class="level-specific" style="display: none;">
+                <div class="riddle-text">
+                    <p>Mystic Offerings, etched in Nazca sands, Narrate the Knowledge of Elder Yugas. At the Atomium's core, a silent Key binds the Echoes of Yesteryear.</p>
+                </div>
+                <div class="input-container">
+                    <label>What is the key word?</label>
+                    <input type="text" id="level1-input" class="text-input" placeholder="Enter the word" autocomplete="off" autocapitalize="off">
+                    <button id="level1-submit" class="btn-primary">Submit</button>
+                </div>
+            </div>
+
+            <!-- Level 2: Grid Coordinates -->
+            <div id="level-2-content" class="level-specific" style="display: none;">
+                <div class="grid-instruction">Remember the numbers, then tap the positions.</div>
+                <div id="number-display" class="number-display"></div>
+                <div style="text-align:center; margin-bottom:12px;"><button id="level2-start" class="btn-primary">Start</button></div>
+                <div id="coordinate-grid" class="coordinate-grid"></div>
+            </div>
+
+            <!-- Level 3: Height Calculation -->
+            <div id="level-3-content" class="level-specific" style="display: none;">
+                <div class="height-comparison">
+                    <div class="location-data">
+                        <h3>Belgium</h3>
+                        <p class="altitude">Average altitude: <strong>181m</strong></p>
+                    </div>
+                    <div class="location-data">
+                        <h3>Peru</h3>
+                        <p class="altitude">Machu Picchu: <strong><span id="machu-picchu-value">???</span></strong></p>
+                    </div>
+                </div>
+                <div style="text-align:center; margin-bottom:12px;"><button id="level3-investigate" class="btn-primary">Investigate</button></div>
+                <div class="input-container">
+                    <label>Calculate the difference:</label>
+                    <input type="number" id="height-input" class="number-input" placeholder="Enter number">
+                    <button id="height-submit" class="btn-primary">Submit</button>
+                </div>
+            </div>
+
+            <!-- Level 4: Symmetry Selection -->
+            <div id="level-4-content" class="level-specific" style="display: none;">
+                <div class="symmetry-instruction">Select only the symmetrical symbols:</div>
+                <div id="symbol-grid" class="symbol-grid"></div>
+            </div>
+
+            <!-- Level 5: Memory Sequence -->
+            <div id="level-5-content" class="level-specific" style="display: none;">
+                <div class="memory-instruction">Watch and listen, then repeat the sequence:</div>
+                <div style="text-align:center; margin-bottom:12px;"><button id="level5-start" class="btn-primary">Start Sequence</button></div>
+                <div id="memory-symbols" class="memory-symbols"></div>
+                <div id="memory-input" class="memory-input"></div>
+            </div>
+
+            <!-- Level 6: Drag to Align -->
+            <div id="level-6-content" class="level-specific" style="display: none;">
+                <div class="merge-instruction">Align the architectural plans in their correct positions:</div>
+                <div id="merge-container" class="merge-container">
+                    <div style="position:relative; width:100%; max-width:400px; height:400px; margin:0 auto; background:rgba(0,0,0,0.3); border-radius:8px; overflow:hidden;">
+                        <div id="merge-target-tl" class="merge-target merge-target-corner" style="top:0; left:0;">TL</div>
+                        <div id="merge-target-tr" class="merge-target merge-target-corner" style="top:0; right:0;">TR</div>
+                        <div id="merge-target-bl" class="merge-target merge-target-corner" style="bottom:0; left:0;">BL</div>
+                        <div id="merge-target-br" class="merge-target merge-target-corner" style="bottom:0; right:0;">BR</div>
+                    </div>
+                    <div id="merge-pieces" class="merge-pieces"></div>
+                </div>
+            </div>
+
+            <!-- Level 7: Final Phrase -->
+            <div id="level-7-content" class="level-specific" style="display: none;">
+                <div class="final-instruction" style="margin-bottom:30px;">The truth scattered across memories—can you recall the final word?</div>
+                <div class="input-container">
+                    <input type="text" id="final-input" class="text-input" placeholder="Enter final word" style="text-transform:uppercase; font-size:1.5rem; padding:20px;">
+                    <button id="final-submit" class="btn-primary" style="margin-top:15px;">Submit</button>
+                    <button id="show-hints-btn" class="btn-secondary" style="margin-top:10px; margin-right:8px;">Show My Letters</button>
+                    <button id="reset-attempt-btn" class="btn-secondary" style="margin-top:10px;">Reset Game</button>
+                </div>
+            </div>
+
+            <!-- Success Message -->
+            <div id="success-message" class="success-message" style="display: none;">
+                <p id="success-text"></p>
+                <button id="next-level-btn" class="btn-primary">Continue</button>
+            </div>
+
+            <!-- Error Message -->
+            <div id="error-message" class="error-message" style="display: none;">
+                <p>Incorrect. Try again.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Final Video Screen -->
+    <div id="video-screen" class="screen">
+        <div class="video-content">
+            <h2 class="final-title">You were only looking at the surface.</h2>
+            <video id="final-video" class="final-video" controls>
+                <source src="video/monkeiy.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <button id="restart-btn" class="btn-secondary">Restart</button>
+        </div>
+    </div>
+
+    <!-- Hint Modal -->
+    <div id="hint-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <h3>Hint</h3>
+            <p id="hint-text"></p>
+            <p class="hint-counter">Hints used: <span id="hints-used">0</span>/3</p>
+            <button id="close-hint" class="btn-primary">Close</button>
+        </div>
+    </div>
+
+    <!-- Letter Reveal Toast (simple animation) -->
+    <div id="letter-toast" style="position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); background:rgba(184,134,11,0.95); color:#0d0d0d; padding:24px 40px; font-size:2rem; font-weight:bold; border-radius:8px; z-index:2000; display:none; animation:toastPop 0.6s ease-out;">+<span id="letter-toast-char">?</span></div>
+
+    <!-- Level Decorative Icons -->
+    <div id="level-icons" class="level-icons"></div>
+
+    <audio id="ambient-audio" loop>
+        <source src="audio/ambient_dark_loop.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="condor-audio">
+        <source src="audio/condor_pasa_instrumental.mp3" type="audio/mpeg">
+    </audio>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
